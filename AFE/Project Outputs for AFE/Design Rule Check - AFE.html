@@ -1,0 +1,897 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2021-03-25</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">3:29:36 AM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc" class="file"><acronym title="C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc">C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">187</td></tr>
+</table>
+</td>
+</table><a name="IDHAYDIEMD3MARG5EPYDLWGHMDDDQRP045MZBPFXMWXI1HQNHGN5JN"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRTKW0SUVSOJVHXPFXDNJQRCC2FOJV50130WD1VGRUE0RPPLBEXUE">Clearance Constraint (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMHTHM415I4S1FZGNMRWGK5JRLGX1PNN0Q0KBKVGMI0K3UPU5MJ">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBIAKWV0MIQC2OQTDJ2BA0HH4NOS4JIP0TSTPDUFCRVKAEXR1SBTC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTOBTMURTXCDIAFGEBNY45KD4ZVKW2MATXADBD2ZKWDWTMRZMZN">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDN0LW35BHMICNMGNOVHEHMXTMDCW1T1TICEQQFSO32FGHVBK3UTRF">Width Constraint (Min=0.089mm) (Max=0.508mm) (Preferred=0.147mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDT3LUHAOLB5QYKJPM2WPJLZTT3CEEXXUOEOHIQNN0KYZOAH1UIJ2C">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRPSWOEBXNREAMCTI3WE2Q00WINYAQE4EOEYHKPGLXNDGOPR1TCGH">Hole Size Constraint (Min=0.25mm) (Max=6mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDJITBTCIIYKREGLU1R0H2YZBFUCFXJDATYZHJIRFI32RO50VHL4OF">Hole To Hole Clearance (Gap=0.5mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRMNFWWWX53AQJF23WDSGCFP1QP2BH5OZIEAYQ0FBORKYZQHOJFNP">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">88</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDICSFUVWEL5BKETR0GYXP4JJPNNNEKMWF5CXB3ZPTKHV43TJE3I0H">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">96</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRC125VLDNNGTHEDNI1NQSUF1FIF2EGE4H1OV0XCAMO0TLVW3ZPOI">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQQOO3LMKGXDHOBYTOU4LQQ0MNMR2AN0CCOZZFTJ5AQFU53KSQHIO">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDP4QUOQS1FUSEKNSK4VMUZG3G0JITJCUQFF03RZMYRJ0JGO23IRNJ">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">187</td>
+</tr>
+</table><br><a name="IDRMNFWWWX53AQJF23WDSGCFP1QP2BH5OZIEAYQ0FBORKYZQHOJFNP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.061mil|Location2.X=3661.311mil|Location1.Y=2818.312mil|Location2.Y=2829.562mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.061mil|Location2.X=3661.311mil|Location1.Y=2818.312mil|Location2.Y=2829.562mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C1-1(46.804mm,46.78mm) on Top Copper And Pad C1-2(48.104mm,46.78mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.328mil|Location2.X=2129.578mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.328mil|Location2.X=2129.578mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C11-1(9mm,75.35mm) on Top Copper And Pad C11-2(9mm,76.65mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2354.548mil|Location2.X=2365.798mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2354.548mil|Location2.X=2365.798mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C12-1(15mm,75.35mm) on Top Copper And Pad C12-2(15mm,76.65mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.722mil|Location2.X=2479.972mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.722mil|Location2.X=2479.972mil|Location1.Y=3986.501mil|Location2.Y=3997.751mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C13-1(18mm,75.4mm) on Top Copper And Pad C13-2(18mm,76.6mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3559.273mil|Location2.X=3570.523mil|Location1.Y=4234.533mil|Location2.Y=4245.783mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3559.273mil|Location2.X=3570.523mil|Location1.Y=4234.533mil|Location2.Y=4245.783mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C14-1(45.6mm,82.95mm) on Top Copper And Pad C14-2(45.6mm,81.65mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2789.391mil|Location2.X=2800.641mil|Location1.Y=3756.717mil|Location2.Y=3767.967mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2789.391mil|Location2.X=2800.641mil|Location1.Y=3756.717mil|Location2.Y=3767.967mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C16-1(26.193mm,70.715mm) on Top Copper And Pad C16-2(24.993mm,70.715mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2854.548mil|Location2.X=2865.798mil|Location1.Y=3966.816mil|Location2.Y=3978.066mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2854.548mil|Location2.X=2865.798mil|Location1.Y=3966.816mil|Location2.Y=3978.066mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C18-1(27.8mm,74.9mm) on Top Copper And Pad C18-2(27.8mm,76.1mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3086.832mil|Location2.X=3098.082mil|Location1.Y=4163.666mil|Location2.Y=4174.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3086.832mil|Location2.X=3098.082mil|Location1.Y=4163.666mil|Location2.Y=4174.916mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C19-1(33.7mm,81.1mm) on Top Copper And Pad C19-2(33.7mm,79.9mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3661.017mil|Location2.X=3672.267mil|Location1.Y=3213.918mil|Location2.Y=3225.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3661.017mil|Location2.X=3672.267mil|Location1.Y=3213.918mil|Location2.Y=3225.168mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C2-1(47.083mm,56.828mm) on Top Copper And Pad C2-2(48.383mm,56.828mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.022mil|Location2.X=3724.272mil|Location1.Y=3213.918mil|Location2.Y=3225.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3713.022mil|Location2.X=3724.272mil|Location1.Y=3213.918mil|Location2.Y=3225.168mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.239mm &lt; 0.254mm) Between Pad C2-2(48.383mm,56.828mm) on Top Copper And Pad C9-2(49.592mm,56.281mm) on Top Copper [Top Mask] Mask Sliver [0.239mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3887.327mil|Location2.X=3898.577mil|Location1.Y=3149.975mil|Location2.Y=3161.225mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3887.327mil|Location2.X=3898.577mil|Location1.Y=3149.975mil|Location2.Y=3161.225mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C3-1(53.933mm,55.402mm) on Top Copper And Pad C3-2(53.933mm,54.102mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3519.096mil|Location2.X=3530.346mil|Location1.Y=3028.421mil|Location2.Y=3039.671mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3519.096mil|Location2.X=3530.346mil|Location1.Y=3028.421mil|Location2.Y=3039.671mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad C4-1(43.478mm,52.116mm) on Top Copper And Pad C4-2(44.778mm,52.116mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2426.462mil|Location2.X=2437.712mil|Location1.Y=3068.131mil|Location2.Y=3079.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2426.462mil|Location2.X=2437.712mil|Location1.Y=3068.131mil|Location2.Y=3079.381mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R10-1(16mm,53mm) on Top Copper And Pad R10-2(16.75mm,53mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2761.044mil|Location2.X=2772.294mil|Location1.Y=3324.099mil|Location2.Y=3335.349mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2761.044mil|Location2.X=2772.294mil|Location1.Y=3324.099mil|Location2.Y=3335.349mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R1-1(25.2mm,59.55mm) on Top Copper And Pad R1-2(25.2mm,58.8mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2623.312mil|Location2.X=2634.562mil|Location1.Y=3068.131mil|Location2.Y=3079.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2623.312mil|Location2.X=2634.562mil|Location1.Y=3068.131mil|Location2.Y=3079.381mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R11-1(21mm,53mm) on Top Copper And Pad R11-2(21.75mm,53mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3555.856mil|Location2.X=3567.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3555.856mil|Location2.X=3567.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R13-1(45.388mm,39.06mm) on Top Copper And Pad R13-2(45.388mm,38.31mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3655.856mil|Location2.X=3667.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3655.856mil|Location2.X=3667.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R14-1(47.928mm,39.06mm) on Top Copper And Pad R14-2(47.928mm,38.31mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.856mil|Location2.X=3767.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.856mil|Location2.X=3767.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R15-1(50.468mm,39.06mm) on Top Copper And Pad R15-2(50.468mm,38.31mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.856mil|Location2.X=3867.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3855.856mil|Location2.X=3867.106mil|Location1.Y=2517.401mil|Location2.Y=2528.651mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R16-1(53.008mm,39.06mm) on Top Copper And Pad R16-2(53.008mm,38.31mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3225.434mil|Location2.X=3236.684mil|Location1.Y=3161.983mil|Location2.Y=3173.233mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3225.434mil|Location2.X=3236.684mil|Location1.Y=3161.983mil|Location2.Y=3173.233mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R17-1(36.996mm,55.432mm) on Top Copper And Pad R17-2(36.996mm,54.682mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3225.434mil|Location2.X=3236.684mil|Location1.Y=3006.077mil|Location2.Y=3017.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3225.434mil|Location2.X=3236.684mil|Location1.Y=3006.077mil|Location2.Y=3017.327mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R18-1(36.996mm,50.722mm) on Top Copper And Pad R18-2(36.996mm,51.472mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.09mil|Location2.X=4076.34mil|Location1.Y=3232.177mil|Location2.Y=3243.427mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.09mil|Location2.X=4076.34mil|Location1.Y=3232.177mil|Location2.Y=3243.427mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R19-1(58.371mm,57.167mm) on Top Copper And Pad R19-2(57.621mm,57.167mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.09mil|Location2.X=4076.34mil|Location1.Y=3194.202mil|Location2.Y=3205.452mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4065.09mil|Location2.X=4076.34mil|Location1.Y=3194.202mil|Location2.Y=3205.452mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R20-1(58.371mm,56.202mm) on Top Copper And Pad R20-2(57.621mm,56.202mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2851.456mil|Location2.X=2862.706mil|Location1.Y=3122.46mil|Location2.Y=3133.71mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2851.456mil|Location2.X=2862.706mil|Location1.Y=3122.46mil|Location2.Y=3133.71mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R4-1(27.496mm,53.678mm) on Top Copper And Pad R4-2(27.496mm,54.428mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3180.021mil|Location2.X=3191.271mil|Location1.Y=3091.251mil|Location2.Y=3102.501mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3180.021mil|Location2.X=3191.271mil|Location1.Y=3091.251mil|Location2.Y=3102.501mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R5-1(35.14mm,53.587mm) on Top Copper And Pad R5-2(35.89mm,53.587mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3307.513mil|Location2.X=3318.763mil|Location1.Y=3091.251mil|Location2.Y=3102.501mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3307.513mil|Location2.X=3318.763mil|Location1.Y=3091.251mil|Location2.Y=3102.501mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R6-1(38.379mm,53.587mm) on Top Copper And Pad R6-2(39.129mm,53.587mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3180.021mil|Location2.X=3191.271mil|Location1.Y=3049.125mil|Location2.Y=3060.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3180.021mil|Location2.X=3191.271mil|Location1.Y=3049.125mil|Location2.Y=3060.375mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R7-1(35.14mm,52.517mm) on Top Copper And Pad R7-2(35.89mm,52.517mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3307.513mil|Location2.X=3318.763mil|Location1.Y=3049.125mil|Location2.Y=3060.375mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3307.513mil|Location2.X=3318.763mil|Location1.Y=3049.125mil|Location2.Y=3060.375mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R8-1(38.379mm,52.517mm) on Top Copper And Pad R8-2(39.129mm,52.517mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2808.241mil|Location2.X=2819.491mil|Location1.Y=3060.855mil|Location2.Y=3072.105mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2808.241mil|Location2.X=2819.491mil|Location1.Y=3060.855mil|Location2.Y=3072.105mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad R9-1(26.399mm,52.864mm) on Top Copper And Pad R9-2(26.399mm,52.114mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3053.07mil|Location2.X=3065.46mil|Location1.Y=3106.396mil|Location2.Y=3117.646mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3053.07mil|Location2.X=3065.46mil|Location1.Y=3106.396mil|Location2.Y=3117.646mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.243mm &lt; 0.254mm) Between Pad U1-1(32mm,54.2mm) on Top Copper And Pad U1-13(32.65mm,53.35mm) on Top Copper [Top Mask] Mask Sliver [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3050.97mil|Location2.X=3062.22mil|Location1.Y=3114.454mil|Location2.Y=3125.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3050.97mil|Location2.X=3062.22mil|Location1.Y=3114.454mil|Location2.Y=3125.704mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.022mm &lt; 0.254mm) Between Pad U1-1(32mm,54.2mm) on Top Copper And Pad U1-14(32.65mm,53.85mm) on Top Copper [Top Mask] Mask Sliver [0.022mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3031.777mil|Location2.X=3043.027mil|Location1.Y=3123.312mil|Location2.Y=3134.562mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3031.777mil|Location2.X=3043.027mil|Location1.Y=3123.312mil|Location2.Y=3134.562mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-1(32mm,54.2mm) on Top Copper And Pad U1-2(31.5mm,54.25mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3050.97mil|Location2.X=3062.22mil|Location1.Y=3049.19mil|Location2.Y=3062.219mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3050.97mil|Location2.X=3062.22mil|Location1.Y=3049.19mil|Location2.Y=3062.219mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad U1-10(32mm,51.95mm) on Top Copper And Pad U1-11(32.65mm,52.35mm) on Top Copper [Top Mask] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3031.777mil|Location2.X=3043.027mil|Location1.Y=3032.761mil|Location2.Y=3044.011mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3031.777mil|Location2.X=3043.027mil|Location1.Y=3032.761mil|Location2.Y=3044.011mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-10(32mm,51.95mm) on Top Copper And Pad U1-9(31.5mm,51.95mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3065.241mil|Location2.Y=3076.491mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3065.241mil|Location2.Y=3076.491mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-11(32.65mm,52.35mm) on Top Copper And Pad U1-12(32.65mm,52.85mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3084.926mil|Location2.Y=3096.176mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3084.926mil|Location2.Y=3096.176mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-12(32.65mm,52.85mm) on Top Copper And Pad U1-13(32.65mm,53.35mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3104.611mil|Location2.Y=3115.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3060.32mil|Location2.X=3071.57mil|Location1.Y=3104.611mil|Location2.Y=3115.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-13(32.65mm,53.35mm) on Top Copper And Pad U1-14(32.65mm,53.85mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.092mil|Location2.X=3023.342mil|Location1.Y=3123.312mil|Location2.Y=3134.562mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.092mil|Location2.X=3023.342mil|Location1.Y=3123.312mil|Location2.Y=3134.562mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-2(31.5mm,54.25mm) on Top Copper And Pad U1-3(31mm,54.25mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2992.899mil|Location2.X=3004.149mil|Location1.Y=3117.103mil|Location2.Y=3130.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2992.899mil|Location2.X=3004.149mil|Location1.Y=3117.103mil|Location2.Y=3130.133mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad U1-3(31mm,54.25mm) on Top Copper And Pad U1-4(30.35mm,53.85mm) on Top Copper [Top Mask] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3104.611mil|Location2.Y=3115.861mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3104.611mil|Location2.Y=3115.861mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-4(30.35mm,53.85mm) on Top Copper And Pad U1-5(30.35mm,53.35mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3084.926mil|Location2.Y=3096.176mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3084.926mil|Location2.Y=3096.176mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-5(30.35mm,53.35mm) on Top Copper And Pad U1-6(30.35mm,52.85mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3065.241mil|Location2.Y=3076.491mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2969.769mil|Location2.X=2981.019mil|Location1.Y=3065.241mil|Location2.Y=3076.491mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-6(30.35mm,52.85mm) on Top Copper And Pad U1-7(30.35mm,52.35mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2992.899mil|Location2.X=3004.149mil|Location1.Y=3050.969mil|Location2.Y=3064.041mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2992.899mil|Location2.X=3004.149mil|Location1.Y=3050.969mil|Location2.Y=3064.041mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.072mm &lt; 0.254mm) Between Pad U1-7(30.35mm,52.35mm) on Top Copper And Pad U1-8(31mm,51.95mm) on Top Copper [Top Mask] Mask Sliver [0.072mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.092mil|Location2.X=3023.342mil|Location1.Y=3032.761mil|Location2.Y=3044.011mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3012.092mil|Location2.X=3023.342mil|Location1.Y=3032.761mil|Location2.Y=3044.011mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U1-8(31mm,51.95mm) on Top Copper And Pad U1-9(31.5mm,51.95mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2256.186mil|Location2.X=2267.436mil|Location1.Y=3101.659mil|Location2.Y=3112.909mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2256.186mil|Location2.X=2267.436mil|Location1.Y=3101.659mil|Location2.Y=3112.909mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.21mm &lt; 0.254mm) Between Pad U2-1(12.3mm,53.05mm) on Top Copper And Pad U2-2(12.3mm,54mm) on Top Copper [Top Mask] Mask Sliver [0.21mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2256.186mil|Location2.X=2267.436mil|Location1.Y=3139.06mil|Location2.Y=3150.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2256.186mil|Location2.X=2267.436mil|Location1.Y=3139.06mil|Location2.Y=3150.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.21mm &lt; 0.254mm) Between Pad U2-2(12.3mm,54mm) on Top Copper And Pad U2-3(12.3mm,54.95mm) on Top Copper [Top Mask] Mask Sliver [0.21mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.247mil|Location2.X=3668.497mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.247mil|Location2.X=3668.497mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-1(47.387mm,49.537mm) on Top Copper And Pad U3-2(47.887mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3638.055mil|Location2.X=3649.305mil|Location1.Y=2963.859mil|Location2.Y=2975.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3638.055mil|Location2.X=3649.305mil|Location1.Y=2963.859mil|Location2.Y=2975.109mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.031mm &lt; 0.254mm) Between Pad U3-1(47.387mm,49.537mm) on Top Copper And Pad U3-32(46.662mm,50.262mm) on Top Copper [Top Mask] Mask Sliver [0.031mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3002.737mil|Location2.Y=3013.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3002.737mil|Location2.Y=3013.987mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-10(51.612mm,50.762mm) on Top Copper And Pad U3-11(51.612mm,51.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=2983.052mil|Location2.Y=2994.302mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=2983.052mil|Location2.Y=2994.302mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-10(51.612mm,50.762mm) on Top Copper And Pad U3-9(51.612mm,50.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3022.422mil|Location2.Y=3033.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3022.422mil|Location2.Y=3033.672mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-11(51.612mm,51.262mm) on Top Copper And Pad U3-12(51.612mm,51.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3042.107mil|Location2.Y=3053.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3042.107mil|Location2.Y=3053.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-12(51.612mm,51.762mm) on Top Copper And Pad U3-13(51.612mm,52.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3061.792mil|Location2.Y=3073.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3061.792mil|Location2.Y=3073.042mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-13(51.612mm,52.262mm) on Top Copper And Pad U3-14(51.612mm,52.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3081.477mil|Location2.Y=3092.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3081.477mil|Location2.Y=3092.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-14(51.612mm,52.762mm) on Top Copper And Pad U3-15(51.612mm,53.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3101.162mil|Location2.Y=3112.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.98mil|Location2.X=3806.23mil|Location1.Y=3101.162mil|Location2.Y=3112.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-15(51.612mm,53.262mm) on Top Copper And Pad U3-16(51.612mm,53.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.551mil|Location2.X=3805.801mil|Location1.Y=3120.355mil|Location2.Y=3131.605mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.551mil|Location2.X=3805.801mil|Location1.Y=3120.355mil|Location2.Y=3131.605mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.031mm &lt; 0.254mm) Between Pad U3-16(51.612mm,53.762mm) on Top Copper And Pad U3-17(50.887mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.031mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.358mil|Location2.X=3786.608mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.358mil|Location2.X=3786.608mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-17(50.887mm,54.487mm) on Top Copper And Pad U3-18(50.387mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.673mil|Location2.X=3766.923mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.673mil|Location2.X=3766.923mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-18(50.387mm,54.487mm) on Top Copper And Pad U3-19(49.887mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3735.988mil|Location2.X=3747.238mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3735.988mil|Location2.X=3747.238mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-19(49.887mm,54.487mm) on Top Copper And Pad U3-20(49.387mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3676.932mil|Location2.X=3688.182mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3676.932mil|Location2.X=3688.182mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-2(47.887mm,49.537mm) on Top Copper And Pad U3-3(48.387mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.303mil|Location2.X=3727.553mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.303mil|Location2.X=3727.553mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-20(49.387mm,54.487mm) on Top Copper And Pad U3-21(48.887mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.618mil|Location2.X=3707.868mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.618mil|Location2.X=3707.868mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-21(48.887mm,54.487mm) on Top Copper And Pad U3-22(48.387mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3676.932mil|Location2.X=3688.182mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3676.932mil|Location2.X=3688.182mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-22(48.387mm,54.487mm) on Top Copper And Pad U3-23(47.887mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.247mil|Location2.X=3668.497mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.247mil|Location2.X=3668.497mil|Location1.Y=3120.784mil|Location2.Y=3132.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-23(47.887mm,54.487mm) on Top Copper And Pad U3-24(47.387mm,54.487mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3638.055mil|Location2.X=3649.305mil|Location1.Y=3120.355mil|Location2.Y=3131.605mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3638.055mil|Location2.X=3649.305mil|Location1.Y=3120.355mil|Location2.Y=3131.605mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.031mm &lt; 0.254mm) Between Pad U3-24(47.387mm,54.487mm) on Top Copper And Pad U3-25(46.662mm,53.762mm) on Top Copper [Top Mask] Mask Sliver [0.031mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3101.162mil|Location2.Y=3112.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3101.162mil|Location2.Y=3112.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-25(46.662mm,53.762mm) on Top Copper And Pad U3-26(46.662mm,53.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3081.477mil|Location2.Y=3092.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3081.477mil|Location2.Y=3092.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-26(46.662mm,53.262mm) on Top Copper And Pad U3-27(46.662mm,52.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3061.792mil|Location2.Y=3073.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3061.792mil|Location2.Y=3073.042mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-27(46.662mm,52.762mm) on Top Copper And Pad U3-28(46.662mm,52.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3042.107mil|Location2.Y=3053.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3042.107mil|Location2.Y=3053.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-28(46.662mm,52.262mm) on Top Copper And Pad U3-29(46.662mm,51.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3022.422mil|Location2.Y=3033.672mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3022.422mil|Location2.Y=3033.672mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-29(46.662mm,51.762mm) on Top Copper And Pad U3-30(46.662mm,51.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.618mil|Location2.X=3707.868mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3696.618mil|Location2.X=3707.868mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-3(48.387mm,49.537mm) on Top Copper And Pad U3-4(48.887mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3002.737mil|Location2.Y=3013.987mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=3002.737mil|Location2.Y=3013.987mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-30(46.662mm,51.262mm) on Top Copper And Pad U3-31(46.662mm,50.762mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=2983.052mil|Location2.Y=2994.302mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3600.098mil|Location2.X=3611.348mil|Location1.Y=2983.052mil|Location2.Y=2994.302mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-31(46.662mm,50.762mm) on Top Copper And Pad U3-32(46.662mm,50.262mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.303mil|Location2.X=3727.553mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3716.303mil|Location2.X=3727.553mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-4(48.887mm,49.537mm) on Top Copper And Pad U3-5(49.387mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3735.988mil|Location2.X=3747.238mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3735.988mil|Location2.X=3747.238mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-5(49.387mm,49.537mm) on Top Copper And Pad U3-6(49.887mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.673mil|Location2.X=3766.923mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3755.673mil|Location2.X=3766.923mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-6(49.887mm,49.537mm) on Top Copper And Pad U3-7(50.387mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.358mil|Location2.X=3786.608mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3775.358mil|Location2.X=3786.608mil|Location1.Y=2925.902mil|Location2.Y=2937.152mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad U3-7(50.387mm,49.537mm) on Top Copper And Pad U3-8(50.887mm,49.537mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.551mil|Location2.X=3805.801mil|Location1.Y=2963.859mil|Location2.Y=2975.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3794.551mil|Location2.X=3805.801mil|Location1.Y=2963.859mil|Location2.Y=2975.109mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.031mm &lt; 0.254mm) Between Pad U3-8(50.887mm,49.537mm) on Top Copper And Pad U3-9(51.612mm,50.262mm) on Top Copper [Top Mask] Mask Sliver [0.031mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.296mil|Location2.X=2760.546mil|Location1.Y=3885.06mil|Location2.Y=3896.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.296mil|Location2.X=2760.546mil|Location1.Y=3885.06mil|Location2.Y=3896.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad U5-1(24.1mm,74mm) on Top Copper And Pad U5-2(25.05mm,74mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.698mil|Location2.X=2797.948mil|Location1.Y=3885.06mil|Location2.Y=3896.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.698mil|Location2.X=2797.948mil|Location1.Y=3885.06mil|Location2.Y=3896.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad U5-2(25.05mm,74mm) on Top Copper And Pad U5-3(26mm,74mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.698mil|Location2.X=2797.948mil|Location1.Y=3991.359mil|Location2.Y=4002.609mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2786.698mil|Location2.X=2797.948mil|Location1.Y=3991.359mil|Location2.Y=4002.609mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad U5-4(26mm,76.7mm) on Top Copper And Pad U5-5(25.05mm,76.7mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.296mil|Location2.X=2760.546mil|Location1.Y=3991.359mil|Location2.Y=4002.609mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2749.296mil|Location2.X=2760.546mil|Location1.Y=3991.359mil|Location2.Y=4002.609mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.197mm &lt; 0.254mm) Between Pad U5-5(25.05mm,76.7mm) on Top Copper And Pad U5-6(24.1mm,76.7mm) on Top Copper [Top Mask] Mask Sliver [0.197mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.217mil|Location2.X=1890.467mil|Location1.Y=3853.627mil|Location2.Y=3864.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.217mil|Location2.X=1890.467mil|Location1.Y=3853.627mil|Location2.Y=3864.877mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad USB1-0(2.825mm,71.95mm) on Multi-Layer And Pad USB1-0(2.825mm,73.8mm) on Top Copper [Top Mask] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.217mil|Location2.X=1890.467mil|Location1.Y=4060.32mil|Location2.Y=4071.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.217mil|Location2.X=1890.467mil|Location1.Y=4060.32mil|Location2.Y=4071.57mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.247mm &lt; 0.254mm) Between Pad USB1-0(2.825mm,76.7mm) on Top Copper And Pad USB1-0(2.825mm,78.55mm) on Multi-Layer [Top Mask] Mask Sliver [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3995.359mil|Location2.Y=4006.609mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3995.359mil|Location2.Y=4006.609mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad USB1-1(5.7mm,76.55mm) on Top Copper And Pad USB1-2(5.7mm,75.9mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3969.769mil|Location2.Y=3981.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3969.769mil|Location2.Y=3981.019mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad USB1-2(5.7mm,75.9mm) on Top Copper And Pad USB1-3(5.7mm,75.25mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3944.178mil|Location2.Y=3955.428mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3944.178mil|Location2.Y=3955.428mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad USB1-3(5.7mm,75.25mm) on Top Copper And Pad USB1-4(5.7mm,74.6mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3918.588mil|Location2.Y=3929.838mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1975.611mil|Location2.X=1986.861mil|Location1.Y=3918.588mil|Location2.Y=3929.838mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.254mm) Between Pad USB1-4(5.7mm,74.6mm) on Top Copper And Pad USB1-5(5.7mm,73.95mm) on Top Copper [Top Mask] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDICSFUVWEL5BKETR0GYXP4JJPNNNEKMWF5CXB3ZPTKHV43TJE3I0H"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2643.194mil|Location2.X=2654.444mil|Location1.Y=3182.469mil|Location2.Y=3193.719mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2643.194mil|Location2.X=2654.444mil|Location1.Y=3182.469mil|Location2.Y=3193.719mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (22.354mm,55.042mm) on Top Overlay And Pad FDA_IN--1(22.354mm,55.042mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2695.803mil|Location2.X=2707.053mil|Location1.Y=3015.812mil|Location2.Y=3027.062mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2695.803mil|Location2.X=2707.053mil|Location1.Y=3015.812mil|Location2.Y=3027.062mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (23.69mm,50.809mm) on Top Overlay And Pad FDA_IN+-1(23.69mm,50.809mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3123.67mil|Location2.X=3134.92mil|Location1.Y=3230.401mil|Location2.Y=3241.651mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3123.67mil|Location2.X=3134.92mil|Location1.Y=3230.401mil|Location2.Y=3241.651mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (34.558mm,56.26mm) on Top Overlay And Pad FDA_OUT+-1(34.558mm,56.26mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131.617mil|Location2.X=3142.867mil|Location1.Y=2983.223mil|Location2.Y=2994.473mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3131.617mil|Location2.X=3142.867mil|Location1.Y=2983.223mil|Location2.Y=2994.473mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (34.76mm,49.981mm) on Top Overlay And Pad FDA_OUT--1(34.76mm,49.981mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3968.244mil|Location2.X=3979.494mil|Location1.Y=3298.473mil|Location2.Y=3309.723mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3968.244mil|Location2.X=3979.494mil|Location1.Y=3298.473mil|Location2.Y=3309.723mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (56.01mm,57.989mm) on Top Overlay And Pad FILTER_OUT+-1(56.01mm,57.989mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3992.464mil|Location2.X=4003.714mil|Location1.Y=3161.985mil|Location2.Y=3173.235mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3992.464mil|Location2.X=4003.714mil|Location1.Y=3161.985mil|Location2.Y=3173.235mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.16mm &lt; 0.254mm) Between Arc (56.626mm,54.522mm) on Top Overlay And Pad FILTER_OUT--1(56.626mm,54.522mm) on Top Copper [Top Overlay] to [Top Mask] clearance [0.16mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.187mil|Location2.X=3653.437mil|Location1.Y=2819.36mil|Location2.Y=2830.61mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.187mil|Location2.X=3653.437mil|Location1.Y=2819.36mil|Location2.Y=2830.61mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C1-1(46.804mm,46.78mm) on Top Copper And Track (47.254mm,46.23mm)(47.654mm,46.23mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.187mil|Location2.X=3653.437mil|Location1.Y=2852.824mil|Location2.Y=2864.074mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3642.187mil|Location2.X=3653.437mil|Location1.Y=2852.824mil|Location2.Y=2864.074mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C1-1(46.804mm,46.78mm) on Top Copper And Track (47.254mm,47.33mm)(47.654mm,47.33mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2119.375mil|Location2.X=2130.625mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2119.375mil|Location2.X=2130.625mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C11-1(9mm,75.35mm) on Top Copper And Track (8.45mm,75.8mm)(8.45mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.84mil|Location2.X=2164.09mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.84mil|Location2.X=2164.09mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C11-1(9mm,75.35mm) on Top Copper And Track (9.55mm,75.8mm)(9.55mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2119.375mil|Location2.X=2130.625mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2119.375mil|Location2.X=2130.625mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C11-2(9mm,76.65mm) on Top Copper And Track (8.45mm,75.8mm)(8.45mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.84mil|Location2.X=2164.09mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2152.84mil|Location2.X=2164.09mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C11-2(9mm,76.65mm) on Top Copper And Track (9.55mm,75.8mm)(9.55mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.935mil|Location2.X=3669.185mil|Location1.Y=2819.36mil|Location2.Y=2830.61mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.935mil|Location2.X=3669.185mil|Location1.Y=2819.36mil|Location2.Y=2830.61mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C1-2(48.104mm,46.78mm) on Top Copper And Track (47.254mm,46.23mm)(47.654mm,46.23mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.935mil|Location2.X=3669.185mil|Location1.Y=2852.824mil|Location2.Y=2864.074mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3657.935mil|Location2.X=3669.185mil|Location1.Y=2852.824mil|Location2.Y=2864.074mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C1-2(48.104mm,46.78mm) on Top Copper And Track (47.254mm,47.33mm)(47.654mm,47.33mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2355.595mil|Location2.X=2366.845mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2355.595mil|Location2.X=2366.845mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C12-1(15mm,75.35mm) on Top Copper And Track (14.45mm,75.8mm)(14.45mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.06mil|Location2.X=2400.31mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.06mil|Location2.X=2400.31mil|Location1.Y=3978.627mil|Location2.Y=3989.877mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C12-1(15mm,75.35mm) on Top Copper And Track (15.55mm,75.8mm)(15.55mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2355.595mil|Location2.X=2366.845mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2355.595mil|Location2.X=2366.845mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C12-2(15mm,76.65mm) on Top Copper And Track (14.45mm,75.8mm)(14.45mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.06mil|Location2.X=2400.31mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2389.06mil|Location2.X=2400.31mil|Location1.Y=3994.375mil|Location2.Y=4005.625mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C12-2(15mm,76.65mm) on Top Copper And Track (15.55mm,75.8mm)(15.55mm,76.2mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3560.32mil|Location2.X=3571.57mil|Location1.Y=4242.407mil|Location2.Y=4253.657mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3560.32mil|Location2.X=3571.57mil|Location1.Y=4242.407mil|Location2.Y=4253.657mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C14-1(45.6mm,82.95mm) on Top Copper And Track (45.05mm,82.1mm)(45.05mm,82.5mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.784mil|Location2.X=3605.034mil|Location1.Y=4242.407mil|Location2.Y=4253.657mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.784mil|Location2.X=3605.034mil|Location1.Y=4242.407mil|Location2.Y=4253.657mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C14-1(45.6mm,82.95mm) on Top Copper And Track (46.15mm,82.1mm)(46.15mm,82.5mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3560.32mil|Location2.X=3571.57mil|Location1.Y=4226.658mil|Location2.Y=4237.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3560.32mil|Location2.X=3571.57mil|Location1.Y=4226.658mil|Location2.Y=4237.908mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C14-2(45.6mm,81.65mm) on Top Copper And Track (45.05mm,82.1mm)(45.05mm,82.5mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.784mil|Location2.X=3605.034mil|Location1.Y=4226.658mil|Location2.Y=4237.908mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.784mil|Location2.X=3605.034mil|Location1.Y=4226.658mil|Location2.Y=4237.908mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C14-2(45.6mm,81.65mm) on Top Copper And Track (46.15mm,82.1mm)(46.15mm,82.5mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.143mil|Location2.X=3664.393mil|Location1.Y=3214.965mil|Location2.Y=3226.215mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.143mil|Location2.X=3664.393mil|Location1.Y=3214.965mil|Location2.Y=3226.215mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C2-1(47.083mm,56.828mm) on Top Copper And Track (47.533mm,56.278mm)(47.933mm,56.278mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.143mil|Location2.X=3664.393mil|Location1.Y=3248.429mil|Location2.Y=3259.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.143mil|Location2.X=3664.393mil|Location1.Y=3248.429mil|Location2.Y=3259.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C2-1(47.083mm,56.828mm) on Top Copper And Track (47.533mm,57.378mm)(47.933mm,57.378mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.891mil|Location2.X=3680.141mil|Location1.Y=3214.965mil|Location2.Y=3226.215mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.891mil|Location2.X=3680.141mil|Location1.Y=3214.965mil|Location2.Y=3226.215mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C2-2(48.383mm,56.828mm) on Top Copper And Track (47.533mm,56.278mm)(47.933mm,56.278mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.891mil|Location2.X=3680.141mil|Location1.Y=3248.429mil|Location2.Y=3259.679mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3668.891mil|Location2.X=3680.141mil|Location1.Y=3248.429mil|Location2.Y=3259.679mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C2-2(48.383mm,56.828mm) on Top Copper And Track (47.533mm,57.378mm)(47.933mm,57.378mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.374mil|Location2.X=3899.624mil|Location1.Y=3157.849mil|Location2.Y=3169.099mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.374mil|Location2.X=3899.624mil|Location1.Y=3157.849mil|Location2.Y=3169.099mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C3-1(53.933mm,55.402mm) on Top Copper And Track (53.383mm,54.552mm)(53.383mm,54.952mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.838mil|Location2.X=3933.088mil|Location1.Y=3157.849mil|Location2.Y=3169.099mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.838mil|Location2.X=3933.088mil|Location1.Y=3157.849mil|Location2.Y=3169.099mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C3-1(53.933mm,55.402mm) on Top Copper And Track (54.483mm,54.552mm)(54.483mm,54.952mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.374mil|Location2.X=3899.624mil|Location1.Y=3142.101mil|Location2.Y=3153.351mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.374mil|Location2.X=3899.624mil|Location1.Y=3142.101mil|Location2.Y=3153.351mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C3-2(53.933mm,54.102mm) on Top Copper And Track (53.383mm,54.552mm)(53.383mm,54.952mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.838mil|Location2.X=3933.088mil|Location1.Y=3142.101mil|Location2.Y=3153.351mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3921.838mil|Location2.X=3933.088mil|Location1.Y=3142.101mil|Location2.Y=3153.351mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C3-2(53.933mm,54.102mm) on Top Copper And Track (54.483mm,54.552mm)(54.483mm,54.952mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3511.222mil|Location2.X=3522.472mil|Location1.Y=3029.468mil|Location2.Y=3040.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3511.222mil|Location2.X=3522.472mil|Location1.Y=3029.468mil|Location2.Y=3040.718mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C4-1(43.478mm,52.116mm) on Top Copper And Track (43.928mm,51.566mm)(44.328mm,51.566mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3511.222mil|Location2.X=3522.472mil|Location1.Y=3062.933mil|Location2.Y=3074.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3511.222mil|Location2.X=3522.472mil|Location1.Y=3062.933mil|Location2.Y=3074.183mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C4-1(43.478mm,52.116mm) on Top Copper And Track (43.928mm,52.666mm)(44.328mm,52.666mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.97mil|Location2.X=3538.22mil|Location1.Y=3029.468mil|Location2.Y=3040.718mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.97mil|Location2.X=3538.22mil|Location1.Y=3029.468mil|Location2.Y=3040.718mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C4-2(44.778mm,52.116mm) on Top Copper And Track (43.928mm,51.566mm)(44.328mm,51.566mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.97mil|Location2.X=3538.22mil|Location1.Y=3062.933mil|Location2.Y=3074.183mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3526.97mil|Location2.X=3538.22mil|Location1.Y=3062.933mil|Location2.Y=3074.183mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.15mm &lt; 0.254mm) Between Pad C4-2(44.778mm,52.116mm) on Top Copper And Track (43.928mm,52.666mm)(44.328mm,52.666mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.15mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2466.482mil|Location2.X=2477.732mil|Location1.Y=2357.004mil|Location2.Y=2368.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2466.482mil|Location2.X=2477.732mil|Location1.Y=2357.004mil|Location2.Y=2368.254mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J11-1(18.471mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(17.201mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.982mil|Location2.X=2480.232mil|Location1.Y=2354.504mil|Location2.Y=2365.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.982mil|Location2.X=2480.232mil|Location1.Y=2354.504mil|Location2.Y=2365.754mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J11-1(18.471mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.982mil|Location2.X=2480.232mil|Location1.Y=2439.504mil|Location2.Y=2450.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2468.982mil|Location2.X=2480.232mil|Location1.Y=2439.504mil|Location2.Y=2450.754mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J11-1(18.471mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.384mil|Location2.X=2601.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.384mil|Location2.X=2601.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-2(21.011mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.384mil|Location2.X=2601.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2590.384mil|Location2.X=2601.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-2(21.011mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.384mil|Location2.X=2701.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.384mil|Location2.X=2701.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-3(23.551mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.384mil|Location2.X=2701.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2690.384mil|Location2.X=2701.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-3(23.551mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.384mil|Location2.X=2801.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.384mil|Location2.X=2801.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-4(26.091mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.384mil|Location2.X=2801.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2790.384mil|Location2.X=2801.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-4(26.091mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2890.384mil|Location2.X=2901.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2890.384mil|Location2.X=2901.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-5(28.631mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2890.384mil|Location2.X=2901.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2890.384mil|Location2.X=2901.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-5(28.631mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2990.384mil|Location2.X=3001.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2990.384mil|Location2.X=3001.634mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-6(31.171mm,35.627mm) on Multi-Layer And Track (17.201mm,34.357mm)(32.441mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2990.384mil|Location2.X=3001.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2990.384mil|Location2.X=3001.634mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-6(31.171mm,35.627mm) on Multi-Layer And Track (17.201mm,36.897mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3049.199mil|Location2.X=3060.449mil|Location1.Y=2378.406mil|Location2.Y=2389.656mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3049.199mil|Location2.X=3060.449mil|Location1.Y=2378.406mil|Location2.Y=2389.656mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J11-6(31.171mm,35.627mm) on Multi-Layer And Track (32.441mm,34.357mm)(32.441mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.461mil|Location2.X=2017.711mil|Location1.Y=2727.61mil|Location2.Y=2738.86mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.461mil|Location2.X=2017.711mil|Location1.Y=2727.61mil|Location2.Y=2738.86mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J14-1(6.382mm,45.046mm) on Multi-Layer And Track (2.572mm,43.776mm)(7.652mm,43.776mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2004.167mil|Location2.X=2015.417mil|Location1.Y=2807.897mil|Location2.Y=2819.147mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2004.167mil|Location2.X=2015.417mil|Location1.Y=2807.897mil|Location2.Y=2819.147mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.251mm &lt; 0.254mm) Between Pad J14-1(6.382mm,45.046mm) on Multi-Layer And Track (2.572mm,46.316mm)(7.652mm,46.316mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.251mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.461mil|Location2.X=2017.711mil|Location1.Y=2727.61mil|Location2.Y=2738.86mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2006.461mil|Location2.X=2017.711mil|Location1.Y=2727.61mil|Location2.Y=2738.86mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J14-1(6.382mm,45.046mm) on Multi-Layer And Track (5.112mm,43.776mm)(7.652mm,43.776mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.104mil|Location2.X=2084.354mil|Location1.Y=2738.96mil|Location2.Y=2750.21mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2073.104mil|Location2.X=2084.354mil|Location1.Y=2738.96mil|Location2.Y=2750.21mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.251mm &lt; 0.254mm) Between Pad J14-1(6.382mm,45.046mm) on Multi-Layer And Track (7.652mm,43.776mm)(7.652mm,46.316mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.251mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1892.941mil|Location2.X=1904.191mil|Location1.Y=2772.102mil|Location2.Y=2783.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1892.941mil|Location2.X=1904.191mil|Location1.Y=2772.102mil|Location2.Y=2783.352mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.249mm &lt; 0.254mm) Between Pad J14-2(3.842mm,45.046mm) on Multi-Layer And Track (2.572mm,43.776mm)(2.572mm,46.316mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.249mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.763mil|Location2.X=1940.013mil|Location1.Y=2727.734mil|Location2.Y=2738.984mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.763mil|Location2.X=1940.013mil|Location1.Y=2727.734mil|Location2.Y=2738.984mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.249mm &lt; 0.254mm) Between Pad J14-2(3.842mm,45.046mm) on Multi-Layer And Track (2.572mm,43.776mm)(7.652mm,43.776mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.249mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.763mil|Location2.X=1940.013mil|Location1.Y=2807.924mil|Location2.Y=2819.174mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1928.763mil|Location2.X=1940.013mil|Location1.Y=2807.924mil|Location2.Y=2819.174mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.249mm &lt; 0.254mm) Between Pad J14-2(3.842mm,45.046mm) on Multi-Layer And Track (2.572mm,46.316mm)(7.652mm,46.316mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.249mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3326.214mil|Location2.X=3337.464mil|Location1.Y=2357.004mil|Location2.Y=2368.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3326.214mil|Location2.X=3337.464mil|Location1.Y=2357.004mil|Location2.Y=2368.254mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J8-1(40.308mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(39.038mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3328.714mil|Location2.X=3339.964mil|Location1.Y=2354.504mil|Location2.Y=2365.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3328.714mil|Location2.X=3339.964mil|Location1.Y=2354.504mil|Location2.Y=2365.754mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J8-1(40.308mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3328.714mil|Location2.X=3339.964mil|Location1.Y=2439.504mil|Location2.Y=2450.754mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3328.714mil|Location2.X=3339.964mil|Location1.Y=2439.504mil|Location2.Y=2450.754mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.127mm &lt; 0.254mm) Between Pad J8-1(40.308mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.127mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3450.116mil|Location2.X=3461.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3450.116mil|Location2.X=3461.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-2(42.848mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3450.116mil|Location2.X=3461.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3450.116mil|Location2.X=3461.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-2(42.848mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.116mil|Location2.X=3561.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.116mil|Location2.X=3561.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-3(45.388mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.116mil|Location2.X=3561.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3550.116mil|Location2.X=3561.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-3(45.388mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.116mil|Location2.X=3661.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.116mil|Location2.X=3661.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-4(47.928mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.116mil|Location2.X=3661.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3650.116mil|Location2.X=3661.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-4(47.928mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3750.116mil|Location2.X=3761.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3750.116mil|Location2.X=3761.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-5(50.468mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3750.116mil|Location2.X=3761.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3750.116mil|Location2.X=3761.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-5(50.468mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.116mil|Location2.X=3861.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.116mil|Location2.X=3861.366mil|Location1.Y=2356.787mil|Location2.Y=2368.037mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-6(53.008mm,35.627mm) on Multi-Layer And Track (39.038mm,34.357mm)(54.278mm,34.357mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.116mil|Location2.X=3861.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.116mil|Location2.X=3861.366mil|Location1.Y=2437.221mil|Location2.Y=2448.471mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-6(53.008mm,35.627mm) on Multi-Layer And Track (39.038mm,36.897mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3908.931mil|Location2.X=3920.181mil|Location1.Y=2378.406mil|Location2.Y=2389.656mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3908.931mil|Location2.X=3920.181mil|Location1.Y=2378.406mil|Location2.Y=2389.656mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.243mm &lt; 0.254mm) Between Pad J8-6(53.008mm,35.627mm) on Multi-Layer And Track (54.278mm,34.357mm)(54.278mm,36.897mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.243mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2754.218mil|Location2.X=2765.468mil|Location1.Y=3091.882mil|Location2.Y=3103.132mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2754.218mil|Location2.X=2765.468mil|Location1.Y=3091.882mil|Location2.Y=3103.132mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.247mm &lt; 0.254mm) Between Pad R2-2(25.1mm,53.7mm) on Top Copper And Text "R2" (24.376mm,52.328mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.247mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.433mil|Location2.X=2832.196mil|Location1.Y=3219.739mil|Location2.Y=3230.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.433mil|Location2.X=2832.196mil|Location1.Y=3219.739mil|Location2.Y=3230.989mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.156mm &lt; 0.254mm) Between Pad R3-1(26.9mm,57.1mm) on Top Copper And Track (25.8mm,56.4mm)(26.3mm,56.4mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.156mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.433mil|Location2.X=2832.171mil|Location1.Y=3265.074mil|Location2.Y=3276.324mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.433mil|Location2.X=2832.171mil|Location1.Y=3265.074mil|Location2.Y=3276.324mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.156mm &lt; 0.254mm) Between Pad R3-1(26.9mm,57.1mm) on Top Copper And Track (25.8mm,57.8mm)(26.3mm,57.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.156mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.302mil|Location2.X=2810.041mil|Location1.Y=3219.739mil|Location2.Y=3230.989mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.302mil|Location2.X=2810.041mil|Location1.Y=3219.739mil|Location2.Y=3230.989mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.156mm &lt; 0.254mm) Between Pad R3-2(25.2mm,57.1mm) on Top Copper And Track (25.8mm,56.4mm)(26.3mm,56.4mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.156mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.302mil|Location2.X=2810.065mil|Location1.Y=3265.074mil|Location2.Y=3276.324mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2796.302mil|Location2.X=2810.065mil|Location1.Y=3265.074mil|Location2.Y=3276.324mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.156mm &lt; 0.254mm) Between Pad R3-2(25.2mm,57.1mm) on Top Copper And Track (25.8mm,57.8mm)(26.3mm,57.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.156mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3208.822mil|Location2.X=3220.072mil|Location1.Y=3095.251mil|Location2.Y=3106.501mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3208.822mil|Location2.X=3220.072mil|Location1.Y=3095.251mil|Location2.Y=3106.501mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.213mm &lt; 0.254mm) Between Pad R5-2(35.89mm,53.587mm) on Top Copper And Text "R5" (36.417mm,53.265mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.213mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3036.698mil|Location2.X=3047.948mil|Location1.Y=3145.95mil|Location2.Y=3157.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3036.698mil|Location2.X=3047.948mil|Location1.Y=3145.95mil|Location2.Y=3157.2mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.2mm &lt; 0.254mm) Between Pad U1-1(32mm,54.2mm) on Top Copper And Track (29.8mm,54.8mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.2mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3039.156mil|Location2.X=3050.406mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3039.156mil|Location2.X=3050.406mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.217mm &lt; 0.254mm) Between Pad U1-10(32mm,51.95mm) on Top Copper And Track (29.8mm,51.4mm)(33.2mm,51.4mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.217mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3051.363mil|Location2.Y=3062.613mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3051.363mil|Location2.Y=3062.613mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U1-11(32.65mm,52.35mm) on Top Copper And Track (33.2mm,51.4mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3071.048mil|Location2.Y=3082.298mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3071.048mil|Location2.Y=3082.298mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U1-12(32.65mm,52.85mm) on Top Copper And Track (33.2mm,51.4mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3090.733mil|Location2.Y=3101.983mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3090.733mil|Location2.Y=3101.983mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U1-13(32.65mm,53.35mm) on Top Copper And Track (33.2mm,51.4mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3110.419mil|Location2.Y=3121.669mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3081.91mil|Location2.X=3093.16mil|Location1.Y=3110.419mil|Location2.Y=3121.669mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U1-14(32.65mm,53.85mm) on Top Copper And Track (33.2mm,51.4mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3019.109mil|Location2.X=3030.359mil|Location1.Y=3145.507mil|Location2.Y=3156.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3019.109mil|Location2.X=3030.359mil|Location1.Y=3145.507mil|Location2.Y=3156.757mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.223mm &lt; 0.254mm) Between Pad U1-2(31.5mm,54.25mm) on Top Copper And Track (29.8mm,54.8mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.223mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2999.424mil|Location2.X=3010.674mil|Location1.Y=3145.507mil|Location2.Y=3156.757mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2999.424mil|Location2.X=3010.674mil|Location1.Y=3145.507mil|Location2.Y=3156.757mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.223mm &lt; 0.254mm) Between Pad U1-3(31mm,54.25mm) on Top Copper And Track (29.8mm,54.8mm)(33.2mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.223mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3118.227mil|Location2.Y=3129.477mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3118.227mil|Location2.Y=3129.477mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.245mm &lt; 0.254mm) Between Pad U1-4(30.35mm,53.85mm) on Top Copper And Track (29.8mm,51.4mm)(29.8mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.245mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3098.542mil|Location2.Y=3109.792mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3098.542mil|Location2.Y=3109.792mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.245mm &lt; 0.254mm) Between Pad U1-5(30.35mm,53.35mm) on Top Copper And Track (29.8mm,51.4mm)(29.8mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.245mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3078.857mil|Location2.Y=3090.107mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3078.857mil|Location2.Y=3090.107mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.245mm &lt; 0.254mm) Between Pad U1-6(30.35mm,52.85mm) on Top Copper And Track (29.8mm,51.4mm)(29.8mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.245mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3059.172mil|Location2.Y=3070.422mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2961.788mil|Location2.X=2973.038mil|Location1.Y=3059.172mil|Location2.Y=3070.422mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.245mm &lt; 0.254mm) Between Pad U1-7(30.35mm,52.35mm) on Top Copper And Track (29.8mm,51.4mm)(29.8mm,54.8mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.245mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2999.786mil|Location2.X=3011.036mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2999.786mil|Location2.X=3011.036mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.217mm &lt; 0.254mm) Between Pad U1-8(31mm,51.95mm) on Top Copper And Track (29.8mm,51.4mm)(33.2mm,51.4mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.217mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3019.471mil|Location2.X=3030.721mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3019.471mil|Location2.X=3030.721mil|Location1.Y=3024.23mil|Location2.Y=3035.48mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.217mm &lt; 0.254mm) Between Pad U1-9(31.5mm,51.95mm) on Top Copper And Track (29.8mm,51.4mm)(33.2mm,51.4mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.217mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.603mil|Location2.X=2303.853mil|Location1.Y=3071.147mil|Location2.Y=3082.397mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.603mil|Location2.X=2303.853mil|Location1.Y=3071.147mil|Location2.Y=3082.397mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad U2-1(12.3mm,53.05mm) on Top Copper And Track (13.2mm,51.8mm)(13.2mm,55.7mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.535mil|Location2.X=2303.785mil|Location1.Y=3118.51mil|Location2.Y=3129.76mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.535mil|Location2.X=2303.785mil|Location1.Y=3118.51mil|Location2.Y=3129.76mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U2-2(12.3mm,54mm) on Top Copper And Track (13.2mm,51.8mm)(13.2mm,55.7mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.535mil|Location2.X=2303.785mil|Location1.Y=3155.912mil|Location2.Y=3167.162mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2292.535mil|Location2.X=2303.785mil|Location1.Y=3155.912mil|Location2.Y=3167.162mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.253mm &lt; 0.254mm) Between Pad U2-3(12.3mm,54.95mm) on Top Copper And Track (13.2mm,51.8mm)(13.2mm,55.7mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.253mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2137.105mil|Location2.X=2148.355mil|Location1.Y=3158.688mil|Location2.Y=3169.938mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2137.105mil|Location2.X=2148.355mil|Location1.Y=3158.688mil|Location2.Y=3169.938mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.251mm &lt; 0.254mm) Between Pad U2-4(9.7mm,54.95mm) on Top Copper And Track (8.8mm,51.8mm)(8.8mm,55.7mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.251mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2137.105mil|Location2.X=2148.355mil|Location1.Y=3083.885mil|Location2.Y=3095.135mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2137.105mil|Location2.X=2148.355mil|Location1.Y=3083.885mil|Location2.Y=3095.135mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.251mm &lt; 0.254mm) Between Pad U2-5(9.7mm,53.05mm) on Top Copper And Track (8.8mm,51.8mm)(8.8mm,55.7mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.251mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.91mil|Location2.X=1972.16mil|Location1.Y=3799.493mil|Location2.Y=3810.743mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.91mil|Location2.X=1972.16mil|Location1.Y=3799.493mil|Location2.Y=3810.743mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad USB1-0(5.375mm,72.05mm) on Top Copper And Track (0.925mm,71.25mm)(4.325mm,71.25mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.91mil|Location2.X=1972.16mil|Location1.Y=4114.454mil|Location2.Y=4125.704mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1960.91mil|Location2.X=1972.16mil|Location1.Y=4114.454mil|Location2.Y=4125.704mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad USB1-0(5.375mm,78.45mm) on Top Copper And Track (0.975mm,79.25mm)(4.325mm,79.25mm) on Top Overlay [Top Overlay] to [Top Mask] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRC125VLDNNGTHEDNI1NQSUF1FIF2EGE4H1OV0XCAMO0TLVW3ZPOI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3591.664mil|Location2.X=3602.914mil|Location1.Y=3210.733mil|Location2.Y=3221.983mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3591.664mil|Location2.X=3602.914mil|Location1.Y=3210.733mil|Location2.Y=3221.983mil|Absolute=True">Silk To Silk Clearance Constraint: (0.251mm &lt; 0.254mm) Between Text "C2" (45.02mm,56.485mm) on Top Overlay And Text "C6" (45.59mm,55.345mm) on Top Overlay Silk Text to Silk Clearance [0.251mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3879.369mil|Location2.X=3890.619mil|Location1.Y=3213.749mil|Location2.Y=3224.999mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3879.369mil|Location2.X=3890.619mil|Location1.Y=3213.749mil|Location2.Y=3224.999mil|Absolute=True">Silk To Silk Clearance Constraint: (0.198mm &lt; 0.254mm) Between Text "C3" (53.336mm,56.418mm) on Top Overlay And Text "C7" (51.894mm,55.495mm) on Top Overlay Silk Text to Silk Clearance [0.198mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3260.503mil|Location2.X=3271.753mil|Location1.Y=3084.79mil|Location2.Y=3096.04mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Jerry\Desktop\Capstone\AFE_HW\AFE\AFE.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3260.503mil|Location2.X=3271.753mil|Location1.Y=3084.79mil|Location2.Y=3096.04mil|Absolute=True">Silk To Silk Clearance Constraint: (0.209mm &lt; 0.254mm) Between Text "R5" (36.417mm,53.265mm) on Top Overlay And Text "R7" (36.471mm,52.167mm) on Top Overlay Silk Text to Silk Clearance [0.209mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
